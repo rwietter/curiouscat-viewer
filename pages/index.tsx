@@ -2,84 +2,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { Header } from '@/components/Header'
-import { type ChangeEvent, useState, FormEvent } from 'react'
 import { Posts } from '@/components/Posts'
-import { Post, User } from '@/types/User'
 import { Layout } from '@/components/Layout'
 import { Pagination } from '@/components/Pagination'
 import { Sidebar } from '@/components/Sidebar'
 
 const inter = Inter({ subsets: ['latin'] })
-
-const headers = {
-  'Content-Type': 'application/json',
-  'Access-Control-Request-Method': 'GET',
-  'Access-Control-Request-Headers': 'origin, x-requested-with',
-}
-
-const api = `https://curiouscat.live/api/v2.1/profile` // https://curiouscat.live/api/v2.1/profile?username=zanfranceschi
-
-const minTimestamp = (user: User) => {
-  const [minTimestampPost] = user?.posts?.sort((a, b) => a.post.timestamp - b.post.timestamp);
-  const minTimestamp = minTimestampPost.post.timestamp.toString();
-  return minTimestamp;
-}
+const Poppins = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [user, setUser] = useState<User>({} as User);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(30);
-
-  const totalItems = user?.posts?.length || itemsPerPage;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  const posts = user?.posts?.sort((curr, next) => next.post.timestamp - curr.post.timestamp).slice(startIndex, endIndex);
-
-  const onChangePage = (page: number) => {
-    setCurrentPage(page);
-  }
-
-  const fetchUser = async (username: string) => {
-    try {
-      const query = new URLSearchParams({
-        username,
-        [user?.posts?.length ? 'max_timestamp' : '']: user?.posts?.length ? minTimestamp(user) : '',
-      });
-
-      const response = await fetch(`${api}?${query}`, {
-        headers,
-      });
-
-      if (!response.ok || response.status !== 200) {
-        throw new Error('Error fetching user');
-      }
-
-      const data = await response.json();
-
-      const filterRepeatPosts = data.posts.filter(({ post }: Post) => {
-        return !user?.posts?.some(({ post: userPost }: Post) => userPost.id === post.id);
-      });
-
-      setUser({
-        ...data,
-        posts: [...(user?.posts || []), ...filterRepeatPosts],
-      });
-    } catch (error) {
-      console.log('error', error);
-    }
-  }
-
-  const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const username = e.currentTarget.username.value ?? '';
-    fetchUser(username);
-  }
-
-  console.log('totalItems', totalItems)
-
   return (
     <>
       <Head>
@@ -88,28 +19,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={inter.className}>
-        <Image
-          id='background-image'
-          style={{ position: 'fixed', top: 0, left: 0, zIndex: -1 }}
-          src="/docs@30.8b9a76a2.avif"
-          alt='Background styled image'
-          width={2000}
-          height={2000}
-        />
+      <main style={inter.style}>
         <Layout>
-          <Header handleSearch={handleSearch} />
-          <Posts user={user} posts={posts} />
+          <Header />
+          <Posts />
         </Layout>
-        {user?.posts?.length >= 1 && (
-          <Pagination
-            totalPages={totalPages}
-            page={currentPage}
-            onChangePage={onChangePage}
-          />
-        )}
       </main>
-      <Sidebar />
     </>
   )
 }
+

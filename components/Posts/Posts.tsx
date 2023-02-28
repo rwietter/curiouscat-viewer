@@ -1,23 +1,26 @@
-import { User } from '@/types/User';
-import Image from 'next/image';
+import { usePagination } from '@/store/usePagination';
+import { useUser } from '@/store/useUser';
+import { useMemo } from 'react';
 import * as S from './css'
 
-interface PostsProps {
-  user: User;
-  posts: User['posts'];
-}
+const Posts = () => {
+  const { user } = useUser();
+  const { currentPage, itemsPerPage } = usePagination();
 
-const Posts = (props: PostsProps) => {
-  const sortPostsByTimestamp = (posts: User['posts']) => {
-    return posts?.sort((a, b) => b.post.timestamp - a.post.timestamp);
-  }
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const posts = useMemo(() => {
+    const sortedPosts = user?.posts?.sort((curr, next) => next.post.timestamp - curr.post.timestamp);
+    return sortedPosts?.slice(startIndex, endIndex);
+  }, [endIndex, startIndex, user?.posts]);
 
   return (
     <S.Posts>
-      {props.user.username && (
-        <S.PostsTitle>Posts by @{props.user.username}</S.PostsTitle>
+      {user?.username && (
+        <S.PostsTitle>Posts by @{user?.username} - {user.posts.length} Posts</S.PostsTitle>
       )}
-      {sortPostsByTimestamp(props.posts)?.map(({ post }) => (
+      {posts?.map(({ post }) => (
         <S.Post key={post.id}>
           <S.PostHeader>
             <S.PostCommentAvatar
