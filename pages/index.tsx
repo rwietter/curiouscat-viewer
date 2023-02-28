@@ -7,6 +7,7 @@ import { Posts } from '@/components/Posts'
 import { Post, User } from '@/types/User'
 import { Layout } from '@/components/Layout'
 import { Pagination } from '@/components/Pagination'
+import { Sidebar } from '@/components/Sidebar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -108,6 +109,7 @@ export default function Home() {
           />
         )}
       </main>
+      <Sidebar />
     </>
   )
 }
