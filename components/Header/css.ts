@@ -6,14 +6,14 @@ export const Header = styled('header', {
   flexFlow: 'column',
   justifyContent: 'center',
   width: '100%',
-  paddingTop: '4rem',
+  paddingTop: '2rem',
 })
 
 export const Label = styled('label', {
   display: 'flex',
-  color: '#111',
-  fontWeight: 'bold',
-  fontSize: '1.5rem',
+  fontWeight: 700,
+  fontSize: 'clamp(1.5rem, 4vw, 2.4rem)',
+  color: '#000',
 })
 
 export const SearchContainer = styled('form', {

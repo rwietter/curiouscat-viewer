@@ -6,10 +6,12 @@ export const Pagination = styled("div", {
   alignItems: "center",
   background: '#191D24',
   height: "5rem",
+  marginBottom: "3rem",
   boxShadow: 'rgba(50, 50, 93, 0.2) 0px -5px 40px 5px',
 
   '@bp2': {
     height: "8rem",
+    marginBottom: 0,
   }
 });
 

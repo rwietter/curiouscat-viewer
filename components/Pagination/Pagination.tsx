@@ -1,15 +1,17 @@
+import { usePagination } from '@/store/usePagination';
+import { useUser } from '@/store/useUser';
 import * as S from './css';
 
-interface PaginationProps {
-  totalPages: number;
-  page: number;
-  onChangePage: (page: number) => void;
-}
+const Pagination = () => {
+  const { user } = useUser();
+  const { currentPage: page, itemsPerPage, setCurrentPage } = usePagination();
 
-const Pagination = ({ page, totalPages, onChangePage }: PaginationProps) => {
-  const handlePageChange = (page: number) => {
-    onChangePage(page);
-  };
+  if(!user?.posts?.length) return <div />;
+
+  const totalItems = user?.posts?.length || itemsPerPage;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const handlePageChange = (page: number) => setCurrentPage(page);
 
   return (
     <S.Pagination>

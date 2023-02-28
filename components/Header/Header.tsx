@@ -1,16 +1,21 @@
+import { useUser } from '@/store/useUser';
 import type { FormEvent } from 'react';
 import { SearchIcon } from '../Search';
 import * as S from './css'
 
-interface HeaderProps {
-  handleSearch: (e: FormEvent<HTMLFormElement>) => void;
-}
+const Header = () => {
+  const { fetch } = useUser();
 
-const Header = (props: HeaderProps) => {
+  const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const username = e.currentTarget.username.value ?? '';
+    fetch(username);
+  }
+
   return (
     <S.Header>
       <S.Label>Search by user</S.Label>
-      <S.SearchContainer onSubmit={props.handleSearch}>
+      <S.SearchContainer onSubmit={handleSearch}>
         <S.Input
           placeholder="jhon.doe"
           autoFocus
