@@ -9,4 +9,11 @@ export const Layout = styled("div", {
   width: "100%",
   maxWidth: "90rem",
   padding: "0 1rem",
+
+  '@bp2': {
+    paddingRight: '5rem',
+  },
+  '@bp5': {
+    paddingRight: '1rem',
+  }
 });

@@ -11,12 +11,9 @@ export const Header = styled('header', {
 
 export const Label = styled('label', {
   display: 'flex',
-  color: '#111',
   fontWeight: 700,
   fontSize: 'clamp(1.5rem, 4vw, 2.4rem)',
-  background: 'linear-gradient(90deg, #4b6cb7 0%, #182848 100%);',
-  '-webkit-text-fill-color': 'transparent',
-  '-webkit-background-clip': 'text',
+  color: '#000',
 })
 
 export const SearchContainer = styled('form', {
