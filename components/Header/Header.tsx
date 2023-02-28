@@ -9,9 +9,14 @@ interface HeaderProps {
 const Header = (props: HeaderProps) => {
   return (
     <S.Header>
-      <S.Label>Pesquise por um usuário</S.Label>
+      <S.Label>Search by user</S.Label>
       <S.SearchContainer onSubmit={props.handleSearch}>
-        <S.Input autoFocus name="username" type="text"></S.Input>
+        <S.Input
+          placeholder="jhon.doe"
+          autoFocus
+          name="username"
+          type="text"
+        />
         <S.Search type="submit">
           <SearchIcon />
         </S.Search>

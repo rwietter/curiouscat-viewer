@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import { Header } from '@/components/Header'
 import { type ChangeEvent, useState, FormEvent } from 'react'
 import { Posts } from '@/components/Posts'
-import { User } from '@/types/User'
+import { Post, User } from '@/types/User'
 import { Layout } from '@/components/Layout'
 import { Pagination } from '@/components/Pagination'
 
@@ -21,7 +21,6 @@ const api = `https://curiouscat.live/api/v2.1/profile` // https://curiouscat.liv
 const minTimestamp = (user: User) => {
   const [minTimestampPost] = user?.posts?.sort((a, b) => a.post.timestamp - b.post.timestamp);
   const minTimestamp = minTimestampPost.post.timestamp.toString();
-  console.log('minTimestamp', minTimestamp);
   return minTimestamp;
 }
 
@@ -35,7 +34,8 @@ export default function Home() {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const posts = user?.posts?.slice(startIndex, endIndex);
+
+  const posts = user?.posts?.sort((curr, next) => next.post.timestamp - curr.post.timestamp).slice(startIndex, endIndex);
 
   const onChangePage = (page: number) => {
     setCurrentPage(page);
@@ -52,10 +52,14 @@ export default function Home() {
         headers,
       });
 
+      if (!response.ok || response.status !== 200) {
+        throw new Error('Error fetching user');
+      }
+
       const data = await response.json();
 
-      const filterRepeatPosts = data.posts.filter((post: any) => {
-        return !user?.posts?.some((userPost: any) => userPost.post.id === post.post.id);
+      const filterRepeatPosts = data.posts.filter(({ post }: Post) => {
+        return !user?.posts?.some(({ post: userPost }: Post) => userPost.id === post.id);
       });
 
       setUser({
@@ -69,11 +73,11 @@ export default function Home() {
 
   const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const username = e.currentTarget.username.value;
+    const username = e.currentTarget.username.value ?? '';
     fetchUser(username);
   }
 
-  console.log('user', user.posts);
+  console.log('totalItems', totalItems)
 
   return (
     <>
@@ -85,6 +89,7 @@ export default function Home() {
       </Head>
       <main className={inter.className}>
         <Image
+          id='background-image'
           style={{ position: 'fixed', top: 0, left: 0, zIndex: -1 }}
           src="/docs@30.8b9a76a2.avif"
           alt='Background styled image'
@@ -94,14 +99,14 @@ export default function Home() {
         <Layout>
           <Header handleSearch={handleSearch} />
           <Posts user={user} posts={posts} />
+        </Layout>
+        {user?.posts?.length >= 1 && (
           <Pagination
             totalPages={totalPages}
-            startIndex={startIndex}
-            endIndex={endIndex}
             page={currentPage}
             onChangePage={onChangePage}
           />
-        </Layout>
+        )}
       </main>
     </>
   )

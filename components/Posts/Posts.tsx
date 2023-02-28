@@ -15,7 +15,7 @@ const Posts = (props: PostsProps) => {
   return (
     <S.Posts>
       {props.user.username && (
-        <S.PostsTitle>Posts de @{props.user.username}</S.PostsTitle>
+        <S.PostsTitle>Posts by @{props.user.username}</S.PostsTitle>
       )}
       {sortPostsByTimestamp(props.posts)?.map(({ post }) => (
         <S.Post key={post.id}>

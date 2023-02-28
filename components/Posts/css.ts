@@ -12,16 +12,22 @@ export const PostsTitle = styled("h1", {
 
 /** Post */
 
-export const Post = styled("div", {
+export const Post = styled("section", {
   display: "flex",
   flexDirection: "column",
   padding: "1.5rem",
   maxWidth: "800px",
   width: "100%",
   background: "#fff",
+  boxShadow: 'rgba(17, 12, 46, 0.15) 0px 48px 100px 0px',
   borderRadius: "0.5rem",
   marginTop: '1.5rem',
   position: 'relative',
+
+  wordWrap: 'break-word',
+  wordBreak: 'break-word',
+  hyphens: 'auto',
+  
 });
 
 export const PostHeader = styled("div", {
