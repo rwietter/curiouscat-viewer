@@ -1,0 +1,12 @@
+import { styled } from "@/stitches.config";
+
+export const Layout = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  margin: "0 auto",
+  width: "100%",
+  maxWidth: "90rem",
+  padding: "0 1rem",
+});
