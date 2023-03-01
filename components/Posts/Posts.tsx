@@ -52,7 +52,7 @@ const Posts = (): JSX.Element => {
     <S.Posts>
       {user?.username && (
         <S.PostsTitle>
-          {user?.posts?.length && user.posts.length} Answers by @{user.username}
+          {user?.posts?.length && user.posts.length} Answers from @{user.username}
         </S.PostsTitle>
       )}
       {posts?.map(({ post }) => <Post key={post.id} post={post} />)}
