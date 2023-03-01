@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #FFFFFF;
+  background: var(--colors-background);
   line-height: 1.5;
   font-family: 'Inter', sans-serif;
 }
@@ -15,9 +15,29 @@ a {
   text-decoration: none;
 }
 
-/* Cor de fundo do autocomplete */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: clamp(var(--fluid-type-min, 1rem),
+      calc(1rem + var(--fluid-type-target, 2vw)),
+      var(--fluid-type-max, 1.3rem));
+}
+
+span,
+p,
+a {
+  font-size: clamp(var(--fluid-type-min, 0.7rem),
+      calc(1rem + var(--fluid-type-target, 2vw)),
+      var(--fluid-type-max, 1.1rem));
+}
+
+/* autocomplete */
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px white inset;
+  -webkit-box-shadow: 0 0 0 30px var(--colors-primaryA) inset;
+  -webkit-text-fill-color: var(--colors-primaryB);
 }
 
 @media screen and (max-width: 768px) {

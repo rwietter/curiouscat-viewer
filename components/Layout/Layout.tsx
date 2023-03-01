@@ -1,23 +1,22 @@
-import { type ReactNode } from "react";
-import { Pagination } from "@/components/Pagination";
-import { Sidebar } from "@/components/Sidebar";
-import { Background } from "@/components/Background";
-import * as S from './css'
+import { type ReactNode } from 'react';
+import { Pagination } from '@/components/Pagination';
+import { Sidebar } from '@/components/Sidebar';
+import * as S from './css';
 
-type LayoutProps = {
-  children: ReactNode;
+interface LayoutProps {
+  children: ReactNode
 }
 
-const Layout = ({ children }: LayoutProps) => (
-  <>
-  <Background />
-    <S.Layout>
-      {children}
-    </S.Layout>
-    <Pagination />
-    <Sidebar />
-  </>
-)
+const Layout = ({ children }: LayoutProps): JSX.Element => {
+  return (
+    <>
+      <S.Layout>
+        {children}
+      </S.Layout>
+      <Pagination />
+      <Sidebar />
+    </>
+  );
+};
 
-export { Layout }
-
+export { Layout };

@@ -1,16 +1,13 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import { Header } from '@/components/Header'
-import { Posts } from '@/components/Posts'
-import { Layout } from '@/components/Layout'
-import { Pagination } from '@/components/Pagination'
-import { Sidebar } from '@/components/Sidebar'
+import Head from 'next/head';
+import { Inter } from 'next/font/google';
+import { Header } from '@/components/Header';
+import { Posts } from '@/components/Posts';
+import { Layout } from '@/components/Layout';
 
-const inter = Inter({ subsets: ['latin'] })
-const Poppins = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+// eslint-disable-next-line @typescript-eslint/space-before-function-paren
+export default function Home(): JSX.Element {
   return (
     <>
       <Head>
@@ -26,6 +23,5 @@ export default function Home() {
         </Layout>
       </main>
     </>
-  )
+  );
 }
-

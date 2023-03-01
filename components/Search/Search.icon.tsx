@@ -1,6 +1,6 @@
-import { type SVGAttributes } from "react"
+import type { SVGAttributes } from 'react';
 
-const SearchIcon = (props: SVGAttributes<SVGSVGElement>) => (
+const SearchIcon = (props: SVGAttributes<SVGSVGElement>): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="25"
@@ -30,6 +30,6 @@ const SearchIcon = (props: SVGAttributes<SVGSVGElement>) => (
       y2="15"
     />
   </svg>
-)
+);
 
-export { SearchIcon }
+export { SearchIcon };

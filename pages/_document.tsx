@@ -1,7 +1,8 @@
-import { getCssText } from '@/stitches.config'
-import { Html, Head, Main, NextScript } from 'next/document'
+import { getCssText } from '@/stitches.config';
+import { Html, Head, Main, NextScript } from 'next/document';
 
-export default function Document() {
+// eslint-disable-next-line @typescript-eslint/space-before-function-paren
+export default function Document(): JSX.Element {
   return (
     <Html lang="en">
       <Head>
@@ -12,5 +13,5 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-  )
+  );
 }
