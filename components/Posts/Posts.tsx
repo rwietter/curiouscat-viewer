@@ -1,10 +1,32 @@
 import { usePagination } from '@/store/usePagination';
 import { useUser } from '@/store/useUser';
 import { useMemo } from 'react';
-import * as S from './css'
+import { Post } from '@/components/Post';
+import Lottie from 'react-lottie';
+import * as S from './css';
+import * as catNyanJSON from '@/public/7148-the-nyan-cat.json';
+import * as catSleepingJSON from '@/public/104965-cat-colors.json';
+
+const catNyanLottie = {
+  loop: true,
+  autoplay: true,
+  animationData: catNyanJSON,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice'
+  }
+}
+
+const catSleepingLottie = {
+  loop: true,
+  autoplay: true,
+  animationData: catSleepingJSON,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice'
+  }
+}
 
 const Posts = () => {
-  const { user } = useUser();
+  const { user, loading } = useUser();
   const { currentPage, itemsPerPage } = usePagination();
 
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -15,51 +37,25 @@ const Posts = () => {
     return sortedPosts?.slice(startIndex, endIndex);
   }, [endIndex, startIndex, user?.posts]);
 
+  if (loading) return <Lottie options={catNyanLottie} height={200} width={200} />;
+
+  if (!posts) {
+    return (
+      <S.NoPosts>
+        <span>Please, search for a user</span>
+        <Lottie options={catSleepingLottie} height={300} width={300} />
+      </S.NoPosts>
+    )
+  }
+
   return (
     <S.Posts>
       {user?.username && (
-        <S.PostsTitle>Posts by @{user?.username} - {user.posts.length} Posts</S.PostsTitle>
+        <S.PostsTitle>
+          {user.posts.length || ''} Answers by @{user?.username}
+        </S.PostsTitle>
       )}
-      {posts?.map(({ post }) => (
-        <S.Post key={post.id}>
-          <S.PostHeader>
-            <S.PostCommentAvatar
-              src={post.senderData.avatar}
-              alt="Curious Avatar"
-              width={50}
-              height={50}
-            />
-            <S.PostCommentUserName>Anonymous</S.PostCommentUserName>
-          </S.PostHeader>
-          <S.Divider>
-            <S.PostBody>
-              <S.PostComment>{post.comment}</S.PostComment>
-              <S.Metadata>
-                <a href={`https://curiouscat.live/${post.addresseeData.username}`}>
-                  Para @{post.addresseeData.username}
-                </a>
-                <span>
-                  {new Date(post.timestamp * 1000).toLocaleDateString()}
-                </span>
-              </S.Metadata>
-            </S.PostBody>
-          </S.Divider>
-          <S.PostReply>
-            <S.PostHeader>
-              <S.PostReplyAvatar
-                src={post.addresseeData.avatar}
-                alt={`Avatar de ${post.addresseeData.username}`}
-                width={50}
-                height={50}
-              />
-              <S.PostCommentUserName>@{post.addresseeData.username}</S.PostCommentUserName>
-            </S.PostHeader>
-          </S.PostReply>
-          <S.PostBody>
-            <S.PostComment>{post.reply}</S.PostComment>
-          </S.PostBody>
-        </S.Post>
-      ))}
+      {posts?.map(({ post }) => <Post key={post.id} post={post} />)}
     </S.Posts>
   )
 }

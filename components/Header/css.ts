@@ -13,7 +13,7 @@ export const Label = styled('label', {
   display: 'flex',
   fontWeight: 700,
   fontSize: 'clamp(1.5rem, 4vw, 2.4rem)',
-  color: '#000',
+  color: '$primaryB',
 })
 
 export const SearchContainer = styled('form', {
@@ -23,10 +23,10 @@ export const SearchContainer = styled('form', {
 });
 
 export const Input = styled('input', {
-  color: '#111',
-  background: '#ffffff',
+  color: '$primaryB',
+  background: '$gray50',
   outline: 'none',
-  border: 'none',
+  border: '1px solid $primaryB',
   padding: '0.8rem 1rem',
   fontSize: '1.2rem',
   width: '100%',
@@ -37,11 +37,6 @@ export const Input = styled('input', {
   '&:focus': {
     outline: '1px solid #111',
   },
-
-  ':-webkit-autofill':{
-    WebkitBoxShadow: '0 0 0 30px white inset',
-    background: '#ffffff !important'
-  }
 });
 
 
@@ -51,7 +46,7 @@ export const Search = styled('button', {
   outline: 'none',
   border: 'none',
   position: 'absolute',
-  bottom: '7px',
-  right: '10px',
+  bottom: '10px',
+  right: '15px',
   cursor: 'pointer',
 });

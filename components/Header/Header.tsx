@@ -1,5 +1,6 @@
 import { useUser } from '@/store/useUser';
 import type { FormEvent } from 'react';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { SearchIcon } from '../Search';
 import * as S from './css'
 
@@ -10,6 +11,7 @@ const Header = () => {
     e.preventDefault();
     const username = e.currentTarget.username.value ?? '';
     fetch(username);
+    return e.currentTarget.reset();
   }
 
   return (
@@ -23,7 +25,7 @@ const Header = () => {
           type="text"
         />
         <S.Search type="submit">
-          <SearchIcon />
+          <AiOutlineSearch size={23} color="var(--colors-primaryB)" />
         </S.Search>
       </S.SearchContainer>
     </S.Header>
