@@ -1,15 +1,15 @@
-import { create, StoreApi, UseBoundStore } from "zustand"
+import { create, type StoreApi, type UseBoundStore } from 'zustand';
 
-type PaginationState = {
-  currentPage: number;
-  itemsPerPage: number;
-  setCurrentPage: (currentPage: number) => void;
+interface PaginationState {
+  currentPage: number
+  itemsPerPage: number
+  setCurrentPage: (currentPage: number) => void
 }
 
 const usePagination: UseBoundStore<StoreApi<PaginationState>> = create((set, get) => ({
   currentPage: 1,
   itemsPerPage: 30,
-  setCurrentPage: (currentPage: number) => set({ currentPage }),
-}))
+  setCurrentPage: (currentPage: number) => { set({ currentPage }); }
+}));
 
-export { usePagination }
+export { usePagination };

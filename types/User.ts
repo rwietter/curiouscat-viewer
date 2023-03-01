@@ -13,7 +13,7 @@ export interface User {
   follows_you: boolean
   is_followed_by_me: boolean
   is_following_me: boolean
-  stickers: Stickers
+  stickers: UserStickers
   created_at: number
   status_emoji: any
   last_online: any
@@ -26,7 +26,9 @@ export interface User {
   posts: Post[]
 }
 
-export interface Stickers {}
+export interface UserStickers {
+  name: string
+}
 
 export interface UserData {
   id: number
@@ -43,13 +45,15 @@ export interface UserData {
   follows_you: boolean
   is_followed_by_me: boolean
   is_following_me: boolean
-  stickers: Stickers2
+  stickers: Sticker
   created_at: number
   status_emoji: any
   last_online: any
 }
 
-export interface Stickers2 {}
+export interface Sticker {
+  name: string
+}
 
 export interface Post {
   type: string
@@ -88,10 +92,12 @@ export interface AddresseeData {
   follows_you: boolean
   is_followed_by_me: boolean
   is_following_me: boolean
-  stickers: Stickers3
+  stickers: StickersAddresseData
   created_at: number
   status_emoji: any
   last_online: any
 }
 
-export interface Stickers3 {}
+export interface StickersAddresseData {
+  name: string
+}

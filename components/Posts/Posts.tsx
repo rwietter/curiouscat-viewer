@@ -14,7 +14,7 @@ const catNyanLottie = {
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid slice'
   }
-}
+};
 
 const catSleepingLottie = {
   loop: true,
@@ -23,9 +23,9 @@ const catSleepingLottie = {
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid slice'
   }
-}
+};
 
-const Posts = () => {
+const Posts = (): JSX.Element => {
   const { user, loading } = useUser();
   const { currentPage, itemsPerPage } = usePagination();
 
@@ -45,19 +45,19 @@ const Posts = () => {
         <span>Please, search for a user</span>
         <Lottie options={catSleepingLottie} height={300} width={300} />
       </S.NoPosts>
-    )
+    );
   }
 
   return (
     <S.Posts>
       {user?.username && (
         <S.PostsTitle>
-          {user.posts.length || ''} Answers by @{user?.username}
+          {user?.posts?.length && user.posts.length} Answers by @{user.username}
         </S.PostsTitle>
       )}
       {posts?.map(({ post }) => <Post key={post.id} post={post} />)}
     </S.Posts>
-  )
-}
+  );
+};
 
-export { Posts }
+export { Posts };
