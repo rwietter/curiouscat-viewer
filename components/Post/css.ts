@@ -33,13 +33,17 @@ export const Divider = styled('div', {
 
   '&::after': {
     content: '',
-    left: '25px',
+    left: '20px',
     bottom: '-15px',
     position: 'absolute',
     height: '100%',
     width: '2px',
     background: '$divider',
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+
+    '@bp3': {
+      left: '23px'
+    }
   }
 });
 

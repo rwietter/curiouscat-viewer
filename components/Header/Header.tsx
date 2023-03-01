@@ -36,10 +36,10 @@ const Header = (): JSX.Element => {
 
   return (
     <S.Header>
-      <S.Label>Search by user</S.Label>
+      <S.Label>Search for user</S.Label>
       <S.SearchContainer onSubmit={handleSearch}>
         <S.Input
-          placeholder="jhon.doe"
+          placeholder="john.doe"
           ref={inputRef}
           name="username"
           type="text"
